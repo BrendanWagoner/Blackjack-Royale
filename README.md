@@ -1,1 +1,1 @@
-"#Blackjack Royale" 
+# Blackjack Royale
