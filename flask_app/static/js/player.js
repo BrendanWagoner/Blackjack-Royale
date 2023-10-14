@@ -22,7 +22,10 @@ class Player {
 
     hit(deck){
         deck.draw(this.hand, 1)
-        console.log(this.hand[this.hand.length-1].card_info())
+        // how to add column class to div and add card info
+        var newCard = document.createElement('div')
+        newCard.innerText = this.hand[this.hand.length-1].card_info()
+        document.getElementById('player-hand').appendChild(newCard)
         this.update_total()
 
         return this        
@@ -35,9 +38,10 @@ class Player {
             if(this.hand[i].string_val === 'Ace'){
                 this.ace_logic(this.hand[i])
             }
-            this.total += this.hand.point_val
+            this.total += this.hand[i].point_val
         }
-
+        console.log(this.total)
+        document.getElementById('player-total').innerText = this.total
         return this
     }
 

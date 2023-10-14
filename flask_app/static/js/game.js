@@ -3,8 +3,7 @@ var gameDeck = new Deck();
 
 function startGame(){
     gameDeck.shuffle();
-    gameDeck.draw(playerOne.hand, 2)
-    playerOne.show_hand()
+    playerOne.hit(gameDeck).hit(gameDeck).show_hand()
 }
 
 // TODO SHOW WHAT CARDS ARE IN MY HAND ON PAGE
