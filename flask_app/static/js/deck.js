@@ -2,7 +2,7 @@ class Deck {
     constructor(){
         this.cards = [];
 
-        var suits = ['spades', 'hearts', 'clubs', 'diamonds'];
+        var suits = ['Spades', 'Hearts', 'Clubs', 'Diamonds'];
         
         for(var s=0; s<suits.length; s++){
             var suit = suits[s];

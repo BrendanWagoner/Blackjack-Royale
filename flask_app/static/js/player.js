@@ -23,9 +23,15 @@ class Player {
     hit(deck){
         deck.draw(this.hand, 1)
         // how to add column class to div and add card info
-        var newCard = document.createElement('div')
-        newCard.innerText = this.hand[this.hand.length-1].card_info()
-        document.getElementById('player-hand').appendChild(newCard)
+        var cardsInHand = document.createElement('div')
+        cardsInHand.setAttribute('id', 'card-in-hand')
+        cardsInHand.classList.add('col')
+        document.getElementById('player-hand').appendChild(cardsInHand)
+        let img = document.createElement('img')
+        img.src = `static/img/${this.hand[this.hand.length-1].string_val}_of_${this.hand[this.hand.length-1].suit}.png`
+        img.width = 120
+        img.height = 120
+        document.getElementById('card-in-hand').appendChild(img)
         this.update_total()
 
         return this        
