@@ -25,12 +25,11 @@ class Player {
         // how to add column class to div and add card info
         var cardsInHand = document.createElement('div')
         cardsInHand.setAttribute('id', 'card-in-hand')
-        cardsInHand.classList.add('col')
         document.getElementById('player-hand').appendChild(cardsInHand)
         let img = document.createElement('img')
         img.src = `static/img/${this.hand[this.hand.length-1].string_val}_of_${this.hand[this.hand.length-1].suit}.png`
-        img.width = 120
-        img.height = 120
+        img.width = 127
+        img.height = 172
         document.getElementById('card-in-hand').appendChild(img)
         this.update_total()
 
