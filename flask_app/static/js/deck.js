@@ -1,4 +1,7 @@
 class Deck {
+    // establishes empty array for deck, and creates a array of all suits in cards
+    // then for each suit, use a for loop to create 13 cards for each
+    // then add card to the Deck.card array
     constructor(){
         this.cards = [];
 
@@ -10,7 +13,7 @@ class Deck {
                 var str_val = '';
                 var val = 0;
                 if(i === 1){
-                    val = 11;
+                    val = 1;
                     str_val = 'Ace';
                 }
                 else if(i === 11){
@@ -34,27 +37,24 @@ class Deck {
         }
     }
 
-    show_cards(){
+    showCards(){
         for(var i=0; i<this.cards.length; i++){
-            console.log(this.cards[i].card_info())
-        }
-    }
-
-    
-    show_cards(){
-        for(var i=0; i<this.cards.length; i++){
-            console.log(this.cards[i].card_info())
+            console.log(this.cards[i].cardInfo())
         }
 
         return this
     }
 
-    show_first_card(){
-        this.cards[0].card_info()
+    showFirstCard(){
+        this.cards[0].cardInfo()
 
         return this
     }
 
+    // starting at the last card in the deck and moving in 
+    // for each loop we will pick a random number that is not bigger then i for an index j
+    // and we will use i as an index, we will then swap positions of each
+    // will repeat till loop is over 
     shuffle(){
         for (var i = this.cards.length-1; i>0; i--){
             var j = Math.floor(Math.random() * (i+1));
@@ -65,14 +65,17 @@ class Deck {
         return this
     }
 
-    draw(hand, amount=1){
-        for(var i=0; i<amount; i++){
-            hand.push(this.cards[i])
-            var index = this.cards.indexOf(this.cards[i])
-            this.cards.splice(index, 1)
+    // using recursion add first card in the deck array and remove it from array
+    // repeat if amount is more than 1 
+    draw(hand, amount){
+        if(amount == 0){
+            
+            return this
         }
 
-        return this
+        hand.push(this.cards[0])
+        this.cards.splice(this.cards.indexOf(this.cards[0]), 1)
+        this.draw(hand, amount-1);
     }
 }
-
+    

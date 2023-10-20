@@ -1,18 +1,23 @@
 class Player {
     constructor(name){
-        this.name = name
+        if(name){
+            this.name = name
+        }
         this.hand = []
         this.total = 0
     }
 
-    show_hand(){
+    // sets initial phrase to variable first, then loops through each card in hand
+    // and adds a string from the cards method card.cardInfo()
+    // if last card will add before info and a period after
+    displayHand(){
         var phrase = 'My hand consists of '
         for(var i=0; i<this.hand.length; i++){
             if(this.hand[i] === this.hand[this.hand.length - 1]){
-                phrase = phrase + `and ${this.hand[i].card_info()}`
+                phrase = phrase + `and ${this.hand[i].cardInfo()}.`
             }
             else{
-                phrase = phrase + `${this.hand[i].card_info()}, `
+                phrase = phrase + `${this.hand[i].cardInfo()}, `
             }
         }
         console.log(phrase)
@@ -20,59 +25,101 @@ class Player {
         return this
     }
 
+    // clears div 'player-hand' and then creates div 'cards-in-hand'
+    // for each card in this.hand attach img relating to card to div 'cards-in-hand' 
+    showHand(){
+        var cardsInHand = document.createElement('div')
+        document.getElementById('player-hand').innerText = ''
+        cardsInHand.setAttribute('id', 'cards-in-hand')
+        document.getElementById('player-hand').appendChild(cardsInHand)
+        
+        for(var i=0; i<this.hand.length;i++){
+            let img = document.createElement('img')
+            img.src = `static/img/${this.hand[i].string_val}_of_${this.hand[i].suit}.png`
+            img.width = 127
+            img.height = 172
+            document.getElementById('cards-in-hand').appendChild(img)
+        }
+
+        return this
+    }
+
+    // uses Deck method draw to push a card into the end of this.hand array
+    // after use updateTotal() and showHand() to display total and current hand
     hit(deck){
         deck.draw(this.hand, 1)
-        // how to add column class to div and add card info
-        var cardsInHand = document.createElement('div')
-        cardsInHand.setAttribute('id', 'card-in-hand')
-        document.getElementById('player-hand').appendChild(cardsInHand)
-        let img = document.createElement('img')
-        img.src = `static/img/${this.hand[this.hand.length-1].string_val}_of_${this.hand[this.hand.length-1].suit}.png`
-        img.width = 127
-        img.height = 172
-        document.getElementById('card-in-hand').appendChild(img)
-        this.update_total()
+        this.updateTotal().showHand()
 
         return this        
     }
 
-    update_total(){
+    // sets this.total to 0, then loops for each card in hand
+    // and for each card adds the total to this.total
+    // after the for loop it uses this.aceCheck() for when theres aces in the hand
+    updateTotal(){
         this.total = 0
-        this.arrange_cards()
+
         for(var i=0; i<this.hand.length; i++){
-            if(this.hand[i].string_val === 'Ace'){
-                this.ace_logic(this.hand[i])
-            }
             this.total += this.hand[i].point_val
         }
-        console.log(this.total)
+        this.aceCheck()
         document.getElementById('player-total').innerText = this.total
+        
         return this
     }
 
-    arrange_cards(){
-        var ace_values = []
-
-        for(var i=0; i<this.hand.length; i++){
+    // loop through the hand array, and check if its string value 
+    // if its an Ace, and if so add to the aceCount
+    // after check if theres an aceCount is bigger than 0 
+    // and total is less than 12, add 10 to the total
+    aceCheck(){
+        var aceCount = 0;
+    
+        for(var i=0; i<this.hand.length;i++){
             if(this.hand[i].string_val === 'Ace'){
-                ace_values.push(this.hand[i])
-                this.hand.splice(this.hand[i], 1)
-                for(var j=0; j<ace_values.length; j++){
-                    this.hand.push(ace_values[j])
-                }
+                aceCount++
             }
         }
+        if (aceCount > 0 && this.total < 12){
+            this.total += 10
+        }
+
         return this
     }
 
-    ace_logic(card){
-        if(this.total + 11 <= 21){
-            card.point_val = 11
+    playerTurn(){
+        this.updateTotal()
+        var ui = document.getElementById('ui-text')
+        if(this.blackjackCheck()){
+            ui.innerText = 'Blackjack!'
             return this
         }
-        else{
-            card.point_val = 1
-            return this
+        ui.innerText = 'What will you do?'
+
+
+    }
+
+    blackjackCheck(){
+        if(this.total === 21){
+            return true
+        }
+        return false
+    }
+}
+
+class Dealer extends Player{
+    showHandFaceDown(){
+        var cardsInHand = document.createElement('div')
+        document.getElementById('dealer-hand').innerText = ''
+        cardsInHand.setAttribute('id', 'cards-in-dealers-hand')
+        document.getElementById('dealer-hand').appendChild(cardsInHand)
+        
+        for(var i=0; i<this.hand.length;i++){
+            let img = document.createElement('img')
+            img.src = `static/img/blue_cardback.png`
+            img.width = 127
+            img.height = 172
+            document.getElementById('cards-in-dealers-hand').appendChild(img)
         }
     }
 }

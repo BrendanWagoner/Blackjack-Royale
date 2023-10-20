@@ -1,4 +1,3 @@
-
 class Card {
     constructor(suit, point_val, string_val){
         this.suit = suit;
@@ -6,7 +5,8 @@ class Card {
         this.string_val = string_val;
     }
 
-    card_info(){
+    // returns a string using the Card classes attributes
+    cardInfo(){
         return `${this.string_val} of ${this.suit} : ${this.point_val}`
     }
 }
