@@ -5,6 +5,7 @@ class Player {
         }
         this.hand = []
         this.total = 0
+        this.turn = false
     }
 
     // sets initial phrase to variable first, then loops through each card in hand
@@ -36,8 +37,8 @@ class Player {
         for(var i=0; i<this.hand.length;i++){
             let img = document.createElement('img')
             img.src = `static/img/${this.hand[i].string_val}_of_${this.hand[i].suit}.png`
-            img.width = 127
-            img.height = 172
+            img.width = 157
+            img.height = 222
             document.getElementById('cards-in-hand').appendChild(img)
         }
 
@@ -89,14 +90,42 @@ class Player {
 
     playerTurn(){
         this.updateTotal()
+        this.turn = true;
         var ui = document.getElementById('ui-text')
+
         if(this.blackjackCheck()){
             ui.innerText = 'Blackjack!'
+            this.turn = false
+            document.getElementById('hit').style.display = 'none'
+            document.getElementById('stay').style.display = 'none'
+            document.getElementById('play-again').style.display = ''
+
             return this
         }
         ui.innerText = 'What will you do?'
+        
+        // while loop causes page to go unresponsive
 
+        // while(this.turn === true){
+        //     this.updateTotal()
+        //     if (this.total > 21){
+        //         this.turn = false
+        //         document.getElementById('hit').style.display = 'none'
+        //         document.getElementById('stay').style.display = 'none'
+        //         document.getElementById('play-again').style.display = ''
 
+        //         return this
+        //     }
+        // }
+    }
+
+    stay(){
+        this.turn = false
+        document.getElementById('hit').style.display = 'none'
+        document.getElementById('stay').style.display = 'none'
+        document.getElementById('play-again').style.display = ''
+
+        return this
     }
 
     blackjackCheck(){
@@ -117,9 +146,51 @@ class Dealer extends Player{
         for(var i=0; i<this.hand.length;i++){
             let img = document.createElement('img')
             img.src = `static/img/blue_cardback.png`
-            img.width = 127
-            img.height = 172
+            img.width = 157
+            img.height = 222
             document.getElementById('cards-in-dealers-hand').appendChild(img)
         }
+    }
+    showDealerHand(){
+        var cardsInHand = document.createElement('div')
+        document.getElementById('dealer-hand').innerText = ''
+        cardsInHand.setAttribute('id', 'cards-in-dealers-hand')
+        document.getElementById('dealer-hand').appendChild(cardsInHand)
+        
+        for(var i=0; i<this.hand.length;i++){
+            let img = document.createElement('img')
+            img.src = `static/img/${this.hand[i].string_val}_of_${this.hand[i].suit}.png`
+            img.width = 157
+            img.height = 222
+            document.getElementById('cards-in-dealers-hand').appendChild(img)
+        }
+    }
+
+    updateDealerTotal(){
+        this.total = 0
+
+        for(var i=0; i<this.hand.length; i++){
+            this.total += this.hand[i].point_val
+        }
+        this.aceCheck()
+        document.getElementById('dealer-total').innerText = this.total
+        
+        return this
+    }
+
+    dealerHit(deck){
+        deck.draw(this.hand, 1)
+        this.updateDealerTotal().showDealerHand()
+
+        return this    
+    }
+
+    dealerTurn(deck){
+        this.showDealerHand()
+        while (this.total < 17){
+            this.dealerHit(deck)
+        }
+
+        return this
     }
 }

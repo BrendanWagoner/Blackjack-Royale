@@ -11,7 +11,7 @@
     <script src="{{url_for('static', filename='js/player.js')}}"></script>
     <script src="{{url_for('static', filename='js/game.js')}}"></script>
 </head>
-<body style="background-color: #27AE60 ;">
+<body style="background-color: #b8f7d2 ;">
     <!-- navbar -->
     <div id="nav-container">
         <nav class="navbar navbar-dark bg-dark">
@@ -68,7 +68,8 @@
             <div class="d-flex justify-content-around">
                 <button class="btn btn-success" id="start-btn" onclick="gameLoop()">Start</button>
                 <button class="btn btn-primary" id="hit" style="display: none;" onclick="playerOne.hit(gameDeck)">Hit Me</button>
-                <button class="btn btn-danger" id="stay" style="display: none;">Stay</button>
+                <button class="btn btn-danger" id="stay" style="display: none;" onclick="playerOne.stay()">Stay</button>
+                <button class="btn btn-warning" id="play-again" style="display: none;">Play Again?</button>
             </div>
         </div>
         <div class="col"></div>
