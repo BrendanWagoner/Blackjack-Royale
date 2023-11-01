@@ -65,6 +65,14 @@ class Player {
         }
         this.aceCheck()
         document.getElementById('player-total').innerText = this.total
+
+        if (this.total > 21){
+            this.turn = false
+            document.getElementById('hit').style.display = 'none'
+            document.getElementById('stay').style.display = 'none'
+            document.getElementById('play-again').style.display = ''
+            document.getElementById('ui-text').innerText = 'Bust!'
+        }
         
         return this
     }
@@ -88,12 +96,12 @@ class Player {
         return this
     }
 
-    playerTurn(){
-        this.updateTotal()
+
+    playerTurn(deck){
         this.turn = true;
         var ui = document.getElementById('ui-text')
 
-        if(this.blackjackCheck()){
+        if(this.blackjackCheck() === true){
             ui.innerText = 'Blackjack!'
             this.turn = false
             document.getElementById('hit').style.display = 'none'
@@ -102,33 +110,27 @@ class Player {
 
             return this
         }
+        // hits and stays automatically instead of adding the function to the button 
+        console.log(this.hand.length)
+        document.getElementById('hit').addEventListener('click', this.hit(deck), {capture: true})
+        console.log(this.hand.length)
+        document.getElementById('stay').addEventListener('click', this.stay(), {capture: true})
         ui.innerText = 'What will you do?'
-        
-        // while loop causes page to go unresponsive
-
-        // while(this.turn === true){
-        //     this.updateTotal()
-        //     if (this.total > 21){
-        //         this.turn = false
-        //         document.getElementById('hit').style.display = 'none'
-        //         document.getElementById('stay').style.display = 'none'
-        //         document.getElementById('play-again').style.display = ''
-
-        //         return this
-        //     }
-        // }
     }
 
     stay(){
         this.turn = false
         document.getElementById('hit').style.display = 'none'
         document.getElementById('stay').style.display = 'none'
-        document.getElementById('play-again').style.display = ''
+        document.getElementById('ui-text').innerText = 'Dealers Turn'
+        // document.getElementById('play-again').style.display = ''
 
         return this
     }
 
     blackjackCheck(){
+        this.updateTotal()
+
         if(this.total === 21){
             return true
         }

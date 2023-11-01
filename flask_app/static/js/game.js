@@ -18,11 +18,8 @@ function startGame(){
 }
 
 function gameLoop(){
-    console.log('starting game...')
     startGame()
-    console.log('player turn')
-    playerOne.playerTurn()
-    console.log('dealer turn')
+    playerOne.playerTurn(gameDeck)
     dealer.dealerTurn(gameDeck)
 
     // dealer turn
@@ -30,5 +27,7 @@ function gameLoop(){
     // give or take chips
 }
 
-// TODO ADD GAME LOGIC
+// TODO Figure out how to establish turns
+// TODO Clean up gameloop logic
+
 // TODO MAKE WEBSITE LOOK NICE
