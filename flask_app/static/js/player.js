@@ -67,11 +67,7 @@ class Player {
         document.getElementById('player-total').innerText = this.total
 
         if (this.total > 21){
-            this.turn = false
-            document.getElementById('hit').style.display = 'none'
-            document.getElementById('stay').style.display = 'none'
-            document.getElementById('play-again').style.display = ''
-            document.getElementById('ui-text').innerText = 'Bust!'
+            this.stay()
         }
         
         return this
@@ -110,12 +106,18 @@ class Player {
 
             return this
         }
-        // hits and stays automatically instead of adding the function to the button 
-        console.log(this.hand.length)
-        document.getElementById('hit').addEventListener('click', this.hit(deck), {capture: true})
-        console.log(this.hand.length)
-        document.getElementById('stay').addEventListener('click', this.stay(), {capture: true})
-        ui.innerText = 'What will you do?'
+
+        document.getElementById('hit').addEventListener('click', () => {this.hit(deck);})
+        document.getElementById('stay').addEventListener('click', () => {this.stay();})
+        ui.innerText = this.showHand()
+
+        while(this.turn === true){
+            if(this.total === 21 || this.total > 21){
+                this.turn = false
+                document.getElementById('hit').style.display = 'none'
+                document.getElementById('stay').style.display = 'none'
+            }
+        }
     }
 
     stay(){
@@ -123,7 +125,7 @@ class Player {
         document.getElementById('hit').style.display = 'none'
         document.getElementById('stay').style.display = 'none'
         document.getElementById('ui-text').innerText = 'Dealers Turn'
-        // document.getElementById('play-again').style.display = ''
+        document.getElementById('play-again').style.display = ''
 
         return this
     }
@@ -188,6 +190,7 @@ class Dealer extends Player{
     }
 
     dealerTurn(deck){
+        console.log('dealers turn')
         this.showDealerHand()
         while (this.total < 17){
             this.dealerHit(deck)
