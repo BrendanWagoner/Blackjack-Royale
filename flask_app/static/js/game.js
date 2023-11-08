@@ -1,6 +1,14 @@
+window.onload = function() {
+    let myModal = new bootstrap.Modal(
+        document.getElementById('myModal'), 
+        {}
+    );
+    myModal.show();
+}
 var playerOne = new Player();
 var dealer = new Dealer();
 var gameDeck = new Deck();
+
 
 function startGame(){
     playerOne.turn = false

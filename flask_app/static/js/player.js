@@ -50,7 +50,7 @@ class Player {
     hit(deck){
         deck.draw(this.hand, 1)
         this.updateTotal().showHand()
-
+        document.getElementById('ui-text').innerText = `You drew ${this.hand[this.hand.length-1].cardInfo()}, your total is ${this.total}`
         return this        
     }
 
@@ -109,15 +109,14 @@ class Player {
 
         document.getElementById('hit').addEventListener('click', () => {this.hit(deck);})
         document.getElementById('stay').addEventListener('click', () => {this.stay();})
-        ui.innerText = this.showHand()
 
-        while(this.turn === true){
-            if(this.total === 21 || this.total > 21){
-                this.turn = false
-                document.getElementById('hit').style.display = 'none'
-                document.getElementById('stay').style.display = 'none'
-            }
-        }
+        // while(this.turn === true){
+        //     if(this.total === 21 || this.total > 21){
+        //         this.turn = false
+        //         document.getElementById('hit').style.display = 'none'
+        //         document.getElementById('stay').style.display = 'none'
+        //     }
+        // }
     }
 
     stay(){

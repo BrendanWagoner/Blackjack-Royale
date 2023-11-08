@@ -11,7 +11,33 @@
     <script src="{{url_for('static', filename='js/player.js')}}"></script>
     <script src="{{url_for('static', filename='js/game.js')}}"></script>
 </head>
-<body style="background-color: #b8f7d2 ;">
+<body style="background-color: #b8f7d2 ;" class="border border-primary">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous">
+    </script>
+    <!-- modal -->
+    <!-- Still need to add functionality! -->
+    <!-- Get name from form and make it name for the player and Player class -->
+    <div class="modal" id="myModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Whats your name!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            <div class="modal-body">
+                <form action="" method="">
+                    <label for="name" class="form-label">Name:</label>
+                    <input type="text" class="form-control">
+                    <div class="form-text">Must be unique!</div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success">Save changes</button>
+            </div>
+            </div>
+        </div>
+    </div>
     <!-- navbar -->
     <div id="nav-container">
         <nav class="navbar navbar-dark bg-dark">
@@ -45,6 +71,7 @@
         </div>
         <div class="col-1"></div>
         <!-- dealer container -->
+        <!-- dealer container reaching past container and adding a horizontal scroll -->
         <div class="col border" id="dealer-container">
             <div class="container d-flex flex-column align-items-center p-2" id="dealer-container">
                 <div class="d-flex flex-column align-items-center" id="dealer-information">
