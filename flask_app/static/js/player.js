@@ -48,10 +48,17 @@ class Player {
     // uses Deck method draw to push a card into the end of this.hand array
     // after use updateTotal() and showHand() to display total and current hand
     hit(deck){
-        deck.draw(this.hand, 1)
-        this.updateTotal().showHand()
-        document.getElementById('ui-text').innerText = `You drew ${this.hand[this.hand.length-1].cardInfo()}, your total is ${this.total}`
-        return this        
+        if(this.turn === true){
+            deck.draw(this.hand, 1)
+            this.updateTotal().showHand()
+            document.getElementById('ui-text').innerText = `You drew ${this.hand[this.hand.length-1].cardInfo()}, your total is ${this.total}`
+            
+            return this 
+        }
+
+        document.getElementById('ui-text').innerText = 'Not your turn'
+
+        return this
     }
 
     // sets this.total to 0, then loops for each card in hand
@@ -92,39 +99,11 @@ class Player {
         return this
     }
 
-
-    playerTurn(deck){
-        this.turn = true;
-        var ui = document.getElementById('ui-text')
-
-        if(this.blackjackCheck() === true){
-            ui.innerText = 'Blackjack!'
-            this.turn = false
-            document.getElementById('hit').style.display = 'none'
-            document.getElementById('stay').style.display = 'none'
-            document.getElementById('play-again').style.display = ''
-
-            return this
-        }
-
-        document.getElementById('hit').addEventListener('click', () => {this.hit(deck);})
-        document.getElementById('stay').addEventListener('click', () => {this.stay();})
-
-        // while(this.turn === true){
-        //     if(this.total === 21 || this.total > 21){
-        //         this.turn = false
-        //         document.getElementById('hit').style.display = 'none'
-        //         document.getElementById('stay').style.display = 'none'
-        //     }
-        // }
-    }
-
     stay(){
         this.turn = false
         document.getElementById('hit').style.display = 'none'
         document.getElementById('stay').style.display = 'none'
         document.getElementById('ui-text').innerText = 'Dealers Turn'
-        document.getElementById('play-again').style.display = ''
 
         return this
     }
