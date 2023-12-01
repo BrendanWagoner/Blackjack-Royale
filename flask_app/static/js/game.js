@@ -100,12 +100,23 @@ class Game {
         return this
     }
 
+    bust(){
+        document.getElementById('ui-text').innerText = 'You Busted!'
+    }
+
+    win(){
+
+    }
 
     // checks who was closer to 21 without being over 21
     decideGame(){
         document.getElementById('play-again').addEventListener('click', () => {
 
         })
+        if (this.player.total > 21 && this.dealer.total > 21){
+            document.getElementById('ui-text').innerText = 'You Won!'
+            document.getElementById('play-again').style.display = ''
+        }
         if (this.player.total > this.dealer.total && this.player.total <= 21){
             document.getElementById('ui-text').innerText = 'You Won!'
             document.getElementById('play-again').style.display = ''
@@ -121,7 +132,6 @@ class Game {
     // starts game
     gameLoop(){
         this.setUpBoard().playerTurn()
-        // .dealerTurn()
 
         return this
     }
