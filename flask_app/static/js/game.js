@@ -47,7 +47,9 @@ class Game {
 
         document.getElementById('hit').addEventListener('click', () => {
             this.player.hit(this.deck);
+            console.log('hit')
             if(this.player.total > 21 || this.player.total === 21){
+                this.lose()
                 document.getElementById('hit').style.display = 'none'
                 document.getElementById('stay').style.display = 'none'
                 this.dealerTurn();
@@ -55,6 +57,7 @@ class Game {
         })
         document.getElementById('stay').addEventListener('click', () => {
             this.player.stay();
+            console.log(`stayed at ${this.player.total}`)
             this.dealerTurn();
         })
 
