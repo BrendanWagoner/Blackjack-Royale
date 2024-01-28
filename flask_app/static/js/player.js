@@ -114,8 +114,10 @@ class Player {
     return false;
   }
 
-  bet(amount) {
-    if (amount < this.coins) {
+  bet() {
+    let amount = parseFloat(document.getElementById('bet-amount').innerText)
+
+    if (amount <= this.coins) {
       this.coins = this.coins - amount;
       document.getElementById("coin-counter").innerText = this.coins;
       document.getElementById("pot-counter").innerText = amount;
@@ -184,14 +186,4 @@ class Dealer extends Player {
 
     return this;
   }
-
-  // dealerTurn(deck){
-  //     console.log('dealers turn')
-  //     this.showDealerHand()
-  //     while (this.total < 17){
-  //         this.dealerHit(deck)
-  //     }
-
-  //     return this
-  // }
 }

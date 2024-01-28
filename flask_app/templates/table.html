@@ -105,13 +105,33 @@
     <!-- footer -->
     <div class="row fixed-bottom">
         <div class="col d-flex justify-content-between">
-            <div class="p-3 pe-5 ms-5 border border-dark rounded" id="coin-ui">
+            <div class="p-3 ms-5 border border-dark rounded" id="coin-ui">
                 <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-stop-circle-fill" viewBox="0 0 16 16">
                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.5 5A1.5 1.5 0 0 0 5 6.5v3A1.5 1.5 0 0 0 6.5 11h3A1.5 1.5 0 0 0 11 9.5v-3A1.5 1.5 0 0 0 9.5 5h-3z"/>
                 </svg>
-                <p id="coin-counter">0</p>
+                <p id="coin-counter">100</p>
             </div>
-            <div class="p-3 pe-5 ms-5 border border-dark rounded" id="pot-ui">
+            <div class="p-3 ms-5 border border-dark rounded" id="bet-ui">
+                <div class="row d-flex justify-content-around">
+                    <div class="col">
+                        <button class="btn btn-primary" onclick="game.changeBet(-10)">&#8592</button>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary" onclick="game.changeBet(-5)">&#8722</button>
+                    </div>
+                    <div class="col">
+                        <p id="bet-amount">10</p>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary" onclick="game.changeBet(5)">&#43;</button>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary" onclick="game.changeBet(10)">&#8594</button> 
+                    </div>
+                </div>
+            </div>   
+        
+            <div class="p-3  ms-5 border border-dark rounded" id="pot-ui">
                 <p>Pot</p>
                 <p id="pot-counter">0</p>
             </div>

@@ -223,10 +223,16 @@ class Game {
   gameLoop() {
     this.clearBoard();
     console.log("activated");
-    this.player.bet(10);
+    this.player.bet();
     this.setUpBoard();
 
     return this;
+  }
+
+  changeBet(amount){
+    document.getElementById('bet-amount').innerText = parseFloat(document.getElementById('bet-amount').innerText) + amount
+
+    return this
   }
 }
 
