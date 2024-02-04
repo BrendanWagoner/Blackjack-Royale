@@ -165,6 +165,7 @@ class Game {
       console.log('event "play again" added.');
     }
 
+    saveCoins();
     return this;
   }
 
@@ -183,7 +184,7 @@ class Game {
       document.getElementById("play-again").setAttribute("listener", "true");
       console.log('event "play again" added.');
     }
-
+    saveCoins();
     return this;
   }
 
@@ -206,6 +207,7 @@ class Game {
       console.log('event "play again" added.');
     }
 
+    saveCoins();
     return this;
   }
 
@@ -233,6 +235,13 @@ class Game {
     document.getElementById('bet-amount').innerText = parseFloat(document.getElementById('bet-amount').innerText) + amount
 
     return this
+  }
+
+  saveCoins(){
+    coins = document.getElementById('coin-counter').innerText
+  
+    sessionStorage.setItem('coins', coins)
+    return coins
   }
 }
 

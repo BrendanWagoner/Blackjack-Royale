@@ -49,6 +49,12 @@ class User:
 
         return connectToMySQL('twentyone').query_db(sql, data)
     
+    @classmethod
+    def update_user_coins(cls, data):
+        sql = 'UPDATE users set coins=%(coins)s WHERE id=%(id)s'
+
+        return connectToMySQL('twentyone').query_db(sql, data)
+    
     # delete
     @classmethod
     def delete_user(cls, data):
